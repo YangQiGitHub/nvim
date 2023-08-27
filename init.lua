@@ -19,15 +19,40 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
 
+  -- {
+  --   "RRethy/nvim-base16",
+  --   lazy = false,
+  --   priority = 1000,
+  --   config = function()
+	 --    -- vim.cmd.colorscheme("base16-catppuccin")
+  --     -- vim.cmd([[colorscheme base16-ayu-mirage]])
+  --     vim.cmd([[colorscheme base16-bright]])
+  --   end,
+  -- },
+  
   {
-    "RRethy/nvim-base16",
+    "jayden-chan/base46.nvim",
     lazy = false,
     priority = 1000,
-    config = function()
-	    -- vim.cmd.colorscheme("base16-catppuccin")
-      -- vim.cmd([[colorscheme base16-ayu-mirage]])
-      vim.cmd([[colorscheme base16-bright]])
-    end,
+    config = function ()
+      -- exit if it can't be found
+      local present, base46 = pcall(require, "base46")
+      if not present then
+        return
+      end
+
+      -- local theme = "github_dark"
+      local theme = "onedark"
+      local color_base = "base46"
+
+      local theme_opts = {
+        base = color_base,
+        theme = theme,
+        transparency = false,
+      }
+
+      base46.load_theme(theme_opts)
+    end
   },
 
   { "nvim-tree/nvim-web-devicons", lazy = true },
@@ -360,6 +385,120 @@ require("lazy").setup({
         }
       })
     end,
-  }
+  },
+
+  {
+    "nvim-telescope/telescope.nvim",
+    branch = "0.1.x",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+    },
+    config = function ()
+      local actions = require("telescope.actions")
+
+      require("telescope").setup({
+        defaults = {
+          -- border = true,
+          -- file_sorter = require('telescope.sorters').get_fzy_sorter,
+          color_devicons = true,
+          file_previewer = require('telescope.previewers').vim_buffer_cat.new,
+          grep_previewer = require('telescope.previewers').vim_buffer_vimgrep.new,
+          qflist_previewer = require('telescope.previewers').vim_buffer_qflist.new,
+          prompt_prefix = " ",
+          selection_caret = " ",
+          path_display = { "smart" },
+        },
+        mappings = {
+          i = {
+            ["<C-n>"] = actions.cycle_history_next,
+            ["<C-p>"] = actions.cycle_history_prev,
+
+            ["<C-j>"] = actions.move_selection_next,
+            ["<C-k>"] = actions.move_selection_previous,
+
+            ["<C-c>"] = actions.close,
+
+            ["<Down>"] = actions.move_selection_next,
+            ["<Up>"] = actions.move_selection_previous,
+
+            ["<CR>"] = actions.select_default,
+            ["<C-x>"] = actions.select_horizontal,
+            ["<C-v>"] = actions.select_vertical,
+            ["<C-t>"] = actions.select_tab,
+
+            ["<C-u>"] = actions.preview_scrolling_up,
+            ["<C-d>"] = actions.preview_scrolling_down,
+
+            ["<PageUp>"] = actions.results_scrolling_up,
+            ["<PageDown>"] = actions.results_scrolling_down,
+
+            ["<Tab>"] = actions.toggle_selection + actions.move_selection_worse,
+            ["<S-Tab>"] = actions.toggle_selection + actions.move_selection_better,
+            ["<C-q>"] = actions.send_to_qflist + actions.open_qflist,
+            ["<M-q>"] = actions.send_selected_to_qflist + actions.open_qflist,
+            ["<C-l>"] = actions.complete_tag,
+            -- ["<C-_>"] = actions.which_key, -- keys from pressing <C-/>
+          },
+
+          n = {
+            ["<esc>"] = actions.close,
+            ["<CR>"] = actions.select_default,
+            ["<C-x>"] = actions.select_horizontal,
+            ["<C-v>"] = actions.select_vertical,
+            ["<C-t>"] = actions.select_tab,
+
+            ["<Tab>"] = actions.toggle_selection + actions.move_selection_worse,
+            ["<S-Tab>"] = actions.toggle_selection + actions.move_selection_better,
+            ["<C-q>"] = actions.send_to_qflist + actions.open_qflist,
+            ["<M-q>"] = actions.send_selected_to_qflist + actions.open_qflist,
+
+            ["j"] = actions.move_selection_next,
+            ["k"] = actions.move_selection_previous,
+            ["H"] = actions.move_to_top,
+            ["M"] = actions.move_to_middle,
+            ["L"] = actions.move_to_bottom,
+
+            ["<Down>"] = actions.move_selection_next,
+            ["<Up>"] = actions.move_selection_previous,
+            ["gg"] = actions.move_to_top,
+            ["G"] = actions.move_to_bottom,
+
+            ["<C-u>"] = actions.preview_scrolling_up,
+            ["<C-d>"] = actions.preview_scrolling_down,
+
+            ["<PageUp>"] = actions.results_scrolling_up,
+            ["<PageDown>"] = actions.results_scrolling_down,
+
+            ["?"] = actions.which_key,
+          },
+        },
+
+        pickers = { },
+      })
+
+      local TelescopePrompt = {
+        TelescopeBorder = {
+          fg = "#ffffff",
+        },
+        TelescopePromptBorder = {
+          fg = "#ffffff",
+        },
+      }
+      for hl, col in pairs(TelescopePrompt) do
+        vim.api.nvim_set_hl(0, hl, col)
+      end
+    end
+  },
+
+  {
+    "folke/which-key.nvim",
+    event = "VeryLazy",
+    init = function()
+      vim.o.timeout = true
+      vim.o.timeoutlen = 500
+    end,
+    opts = {}
+  },
 })
+
 

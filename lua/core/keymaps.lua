@@ -20,18 +20,19 @@ keymap.set("n", "<C-Left>", "<cmd>vertical resize -2<cr>", { desc = "Decrease wi
 keymap.set("n", "<C-Right>", "<cmd>vertical resize +2<cr>", { desc = "Increase window width" })
 
 -- Move Lines
--- keymap.set("n", "<A-j>", "<cmd>m .+1<cr>==", { desc = "Move down" })
--- keymap.set("n", "<A-k>", "<cmd>m .-2<cr>==", { desc = "Move up" })
--- keymap.set("i", "<A-j>", "<esc><cmd>m .+1<cr>==gi", { desc = "Move down" })
--- keymap.set("i", "<A-k>", "<esc><cmd>m .-2<cr>==gi", { desc = "Move up" })
--- keymap.set("v", "<A-j>", ":m '>+1<cr>gv=gv", { desc = "Move down" })
--- keymap.set("v", "<A-k>", ":m '<-2<cr>gv=gv", { desc = "Move up" })
-keymap.set("n", "∆", ":m .+1<cr>==", { desc = "Move down", silent = true })
-keymap.set("n", "˚", "<cmd>m .-2<cr>==", { desc = "Move up" })
-keymap.set("i", "∆", "<esc><cmd>m .+1<cr>==gi", { desc = "Move down" })
-keymap.set("i", "˚", "<esc><cmd>m .-2<cr>==gi", { desc = "Move up" })
-keymap.set("v", "∆", ":m '>+1<cr>gv=gv", { desc = "Move down" })
-keymap.set("v", "˚", ":m '<-2<cr>gv=gv", { desc = "Move up" })
+keymap.set("n", "<A-j>", "<cmd>m .+1<cr>==", { desc = "Move down" })
+keymap.set("n", "<A-k>", "<cmd>m .-2<cr>==", { desc = "Move up" })
+keymap.set("i", "<A-j>", "<esc><cmd>m .+1<cr>==gi", { desc = "Move down" })
+keymap.set("i", "<A-k>", "<esc><cmd>m .-2<cr>==gi", { desc = "Move up" })
+keymap.set("v", "<A-j>", ":m '>+1<cr>gv=gv", { desc = "Move down" })
+keymap.set("v", "<A-k>", ":m '<-2<cr>gv=gv", { desc = "Move up" })
+
+-- keymap.set("n", "∆", ":m .+1<cr>==", { desc = "Move down", silent = true })
+-- keymap.set("n", "˚", "<cmd>m .-2<cr>==", { desc = "Move up" })
+-- keymap.set("i", "∆", "<esc><cmd>m .+1<cr>==gi", { desc = "Move down" })
+-- keymap.set("i", "˚", "<esc><cmd>m .-2<cr>==gi", { desc = "Move up" })
+-- keymap.set("v", "∆", ":m '>+1<cr>gv=gv", { desc = "Move down" })
+-- keymap.set("v", "˚", ":m '<-2<cr>gv=gv", { desc = "Move up" })
 
 -- Clear search with <esc>
 keymap.set({ "n", "i" }, "<esc>", "<cmd>noh<cr><esc>", { desc = "Escape and clear hlsearch" })
@@ -40,12 +41,22 @@ keymap.set({ "n", "i" }, "<esc>", "<cmd>noh<cr><esc>", { desc = "Escape and clea
 keymap.set("v", "<", "<gv")
 keymap.set("v", ">", ">gv")
 
--- Keymaps for better default experience
--- Disable the <Space> key 
-keymap.set({ "n", "v" }, "<Space>", "<Nop>", { silent = true })
--- keymap.set("n", "<leader>e", ":Lex 30<cr>", { noremap = true, silent = true })
-
 -- Navigate buffers
 keymap.set("n", "<S-l>", ":bnext<cr>", { noremap = true, silent = true })
 keymap.set("n", "<S-h>", ":bprevious<cr>", { noremap = true, silent = true })
 
+-- Add undo break-points
+keymap.set("i", ",", ",<c-g>u")
+keymap.set("i", ".", ".<c-g>u")
+keymap.set("i", ";", ";<c-g>u")
+
+-- save file
+keymap.set({"i", "v", "n", "s"}, "<C-s>", "<cmd>w<cr><esc>", { desc = "Save file" })
+
+-- new file
+keymap.set("n", "<leader>fn", "<cmd>enew<cr>", { desc = "New File" })
+
+-- Disable the <Space> key 
+-- keymap.set({ "n", "v" }, "<Space>", "<Nop>", { silent = true })
+-- keymap.set("n", "<leader>e", ":Lex 30<cr>", { noremap = true, silent = true })
+-- Keymaps for better default experience
