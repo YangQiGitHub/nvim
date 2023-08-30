@@ -57,6 +57,5 @@ keymap.set({"i", "v", "n", "s"}, "<C-s>", "<cmd>w<cr><esc>", { desc = "Save file
 keymap.set("n", "<leader>fn", "<cmd>enew<cr>", { desc = "New File" })
 
 -- Disable the <Space> key 
--- keymap.set({ "n", "v" }, "<Space>", "<Nop>", { silent = true })
--- keymap.set("n", "<leader>e", ":Lex 30<cr>", { noremap = true, silent = true })
 -- Keymaps for better default experience
+-- keymap.set({ "n", "v" }, "<Space>", "<Nop>", { silent = true })
