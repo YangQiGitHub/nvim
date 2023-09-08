@@ -21,11 +21,14 @@ return {
   {
     "williamboman/mason-lspconfig.nvim",
     lazy = true,
-    config = function()
+    opts = {
+      ensure_installed = { "lua_ls", "jsonls", "html" }
+      -- ensure_installed = { "lua_ls", "jsonls", "html", "gopls" }
+      -- ensure_installed = { "lua_ls", "gopls" }
+    },
+    config = function(_, opts)
       -- print("2 mason-lspconfig")
-      require("mason-lspconfig").setup {
-        ensure_installed = { "lua_ls", "jsonls", "html" },
-      }
+      require("mason-lspconfig").setup(opts)
     end
   },
 
@@ -42,7 +45,18 @@ return {
       "williamboman/mason-lspconfig.nvim",
       "hrsh7th/cmp-nvim-lsp",
     },
-    config = function()
+    opts = {
+      servers = {
+        lua_ls = {
+          Lua = {
+            diagnostics = {
+              globals = { "vim" }
+            }
+          }
+        },
+      },
+    },
+    config = function(_, opts)
       -- print("3 nvim-lspconfig")
       -- Diagnostic keymaps
       -- See `:help vim.diagnostic.*` for documentation on any of the below functions
@@ -89,21 +103,21 @@ return {
         end, { desc = "Format current buffer with LSP" })
       end
 
-      local servers = {
-        lua_ls = {
-          Lua = {
-            diagnostics = {
-              globals = { "vim" }
-            }
-          }
-        }
-      }
+      -- local servers = {
+      --   lua_ls = {
+      --     Lua = {
+      --       diagnostics = {
+      --         globals = { "vim" }
+      --       }
+      --     }
+      --   }
+      -- }
 
       require("mason-lspconfig").setup_handlers({
         function(server_name)
           lspconfig[server_name].setup({
             capabilities = lsp_capabilities,
-            settings = servers[server_name],
+            settings = opts.servers[server_name],
             on_attach = on_attach
           })
         end,
