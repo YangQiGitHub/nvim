@@ -21,6 +21,7 @@ return {
         "tsx",
         "css",
         "bash",
+        "yaml",
       },
       incremental_selection = {
         enable = true,

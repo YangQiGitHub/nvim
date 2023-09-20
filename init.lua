@@ -22,10 +22,9 @@ require("lazy").setup({
   spec = {
     { import = "plugins" },
     { import = "plugins.extras.go" },
-  }
-}, {
+  },
   ui = {
-    border = "rounded",
+    border = "rounded"
   }
 })
 

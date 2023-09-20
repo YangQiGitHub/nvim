@@ -22,7 +22,7 @@ return {
     "williamboman/mason-lspconfig.nvim",
     lazy = true,
     opts = {
-      ensure_installed = { "lua_ls", "jsonls", "html" }
+      ensure_installed = { "lua_ls", "jsonls", "html", "yamlls" }
       -- ensure_installed = { "lua_ls", "jsonls", "html", "gopls" }
       -- ensure_installed = { "lua_ls", "gopls" }
     },
