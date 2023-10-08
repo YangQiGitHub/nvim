@@ -36,7 +36,8 @@ opt.termguicolors = true
 
 vim.opt.list = true
 
-
+-- 光标距离底部行数
+opt.scrolloff = 5
 
 
 

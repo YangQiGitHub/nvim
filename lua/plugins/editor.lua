@@ -33,7 +33,7 @@ return {
     config = function()
       require("lualine").setup(
         {
-          options = { theme = "gruvbox" }
+          options = { theme = "onedark" }
         }
       )
     end,
@@ -47,6 +47,7 @@ return {
     config = function()
       require("bufferline").setup({
         options = {
+          diagnostics = "nvim_lsp",
           offsets = {
             {
               filetype = "NvimTree",
@@ -60,15 +61,50 @@ return {
     end,
   },
 
+  -- {
+  --   "lukas-reineke/indent-blankline.nvim",
+  --   event = "VeryLazy",
+  --   version = "2.20.8",
+  --   config = function()
+  --     require("indent_blankline").setup {
+  --       show_current_context = true,
+  --       -- show_current_context_start = true,
+  --     }
+  --   end,
+  -- },
+
   {
     "lukas-reineke/indent-blankline.nvim",
     event = "VeryLazy",
-    config = function()
-      require("indent_blankline").setup {
-        show_current_context = true,
-        -- show_current_context_start = true,
-      }
-    end,
+    main = "ibl",
+    opts = {
+      indent = {
+        -- char = "┊",
+        -- tab_char = "┊",
+        char = "│",
+        tab_char = "│",
+      },
+      scope = {
+        enabled = true,
+        highlight = { "Function", "Label" },
+        show_start = false,
+        show_end = false,
+      },
+      exclude = {
+        filetypes = {
+          "help",
+          "alpha",
+          "dashboard",
+          "neo-tree",
+          "Trouble",
+          "lazy",
+          "mason",
+          "notify",
+          "toggleterm",
+          "lazyterm",
+        },
+      },
+    }
   },
 
   {
