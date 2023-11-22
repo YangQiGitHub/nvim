@@ -1,4 +1,14 @@
 return {
+  {
+    "RRethy/nvim-base16",
+    enabled = false,
+    lazy = false,
+    priority = 1000,
+    config = function ()
+      -- vim.cmd([[colorscheme base16-ayu-mirage]])
+      vim.cmd.colorscheme("base16-onedark")
+    end
+  },
 
   {
     "jayden-chan/base46.nvim",

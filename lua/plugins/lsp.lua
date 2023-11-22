@@ -87,6 +87,7 @@ return {
 
         -- See `:help K` for why this keymap
         nmap("K", vim.lsp.buf.hover, "Hover Documentation")
+        -- TODO: 按键冲突
         nmap("<C-k>", vim.lsp.buf.signature_help, "Signature Documentation")
 
         -- Lesser used LSP functionality

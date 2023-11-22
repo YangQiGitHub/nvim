@@ -14,7 +14,8 @@ opt.expandtab = true
 opt.autoindent = true
 
 -- 防止折行
-opt.wrap = false
+-- opt.wrap = false
+opt.wrap = true
 
 -- 启用鼠标
 opt.mouse:append("a")
