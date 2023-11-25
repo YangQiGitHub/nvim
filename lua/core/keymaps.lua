@@ -20,10 +20,11 @@ keymap.set("n", "<C-Left>", "<cmd>vertical resize -2<cr>", { desc = "Decrease wi
 keymap.set("n", "<C-Right>", "<cmd>vertical resize +2<cr>", { desc = "Increase window width" })
 
 -- Move Lines
-keymap.set("n", "<A-j>", "<cmd>m .+1<cr>==", { desc = "Move down" })
-keymap.set("n", "<A-k>", "<cmd>m .-2<cr>==", { desc = "Move up" })
-keymap.set("i", "<A-j>", "<esc><cmd>m .+1<cr>==gi", { desc = "Move down" })
-keymap.set("i", "<A-k>", "<esc><cmd>m .-2<cr>==gi", { desc = "Move up" })
+-- Comments: 由于在 <A-j> 同时用于修改窗户尺寸,此处仅在选中模式下配置快捷移动功能.
+-- keymap.set("n", "<A-j>", "<cmd>m .+1<cr>==", { desc = "Move down" })
+-- keymap.set("n", "<A-k>", "<cmd>m .-2<cr>==", { desc = "Move up" })
+-- keymap.set("i", "<A-j>", "<esc><cmd>m .+1<cr>==gi", { desc = "Move down" })
+-- keymap.set("i", "<A-k>", "<esc><cmd>m .-2<cr>==gi", { desc = "Move up" })
 keymap.set("v", "<A-j>", ":m '>+1<cr>gv=gv", { desc = "Move down" })
 keymap.set("v", "<A-k>", ":m '<-2<cr>gv=gv", { desc = "Move up" })
 
@@ -42,8 +43,9 @@ keymap.set("v", "<", "<gv")
 keymap.set("v", ">", ">gv")
 
 -- Navigate buffers
-keymap.set("n", "<S-l>", ":bnext<cr>", { noremap = true, silent = true })
-keymap.set("n", "<S-h>", ":bprevious<cr>", { noremap = true, silent = true })
+-- Comments: 最好使用 bufferline.nvim 中提供的命令,否则 Neo-tree 的宽度设置会有问题
+-- keymap.set("n", "<S-l>", ":bnext<cr>", { noremap = true, silent = true })
+-- keymap.set("n", "<S-h>", ":bprevious<cr>", { noremap = true, silent = true })
 
 -- Add undo break-points
 keymap.set("i", ",", ",<c-g>u")

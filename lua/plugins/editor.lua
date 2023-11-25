@@ -1,5 +1,57 @@
 return {
   {
+    "nvim-neo-tree/neo-tree.nvim",
+    branch = "v3.x",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
+      "MunifTanjim/nui.nvim",
+      -- "3rd/image.nvim", -- Optional image support in preview window: See `# Preview Mode` for more information
+    },
+    cmd = "Neotree",
+    keys = {
+      {
+        "<leader>e", "<cmd>Neotree toggle<cr>", desc = "Explorer NeoTree"
+      },
+    },
+    config = function()
+      -- If you want icons for diagnostic errors, you'll need to define them somewhere:
+      -- vim.fn.sign_define("DiagnosticSignError", { text = " ", texthl = "DiagnosticSignError" })
+      -- vim.fn.sign_define("DiagnosticSignWarn", { text = " ", texthl = "DiagnosticSignWarn" })
+      -- vim.fn.sign_define("DiagnosticSignInfo", { text = " ", texthl = "DiagnosticSignInfo" })
+      -- vim.fn.sign_define("DiagnosticSignHint", { text = "󰌵", texthl = "DiagnosticSignHint" })
+
+      require("neo-tree").setup({
+        default_component_configs = {
+          diagnostics = {
+            symbols = {
+              hint = "󰌵",
+              info = "",
+              warn = "",
+              error = "",
+            },
+            highlights = {
+              hint = "DiagnosticSignHint",
+              info = "DiagnosticSignInfo",
+              warn = "DiagnosticSignWarn",
+              error = "DiagnosticSignError",
+            },
+          },
+        },
+        close_if_last_window = true, -- Close Neo-tree if it is the last window left in the tab
+        add_blank_line_at_top = false,
+        hide_root_node = true,
+        window = {
+          width = 34,
+          mappings = {
+            ["<space>"] = "none",
+          },
+        },
+      })
+    end
+  },
+
+  {
     "mrjones2014/smart-splits.nvim",
     config = function()
       -- recommended mappings
@@ -23,31 +75,32 @@ return {
     end
   },
 
-  {
-    "nvim-tree/nvim-tree.lua",
-    version = "*",
-    dependencies = {
-      "nvim-tree/nvim-web-devicons",
-    },
-    config = function()
-      -- disable netrw at the very start of your init.lua
-      vim.g.loaded_netrw = 1
-      vim.g.loaded_netrwPlugin = 1
-
-      require("nvim-tree").setup({
-        renderer = {
-          indent_markers = {
-            enable = true
-          }
-        }
-      })
-    end,
-    keys = {
-      {
-        "<leader>e", "<cmd>NvimTreeToggle<cr>", desc = "NvimTreeToggle"
-      }
-    },
-  },
+  -- {
+  --   "nvim-tree/nvim-tree.lua",
+  --   enabled = false,
+  --   version = "*",
+  --   dependencies = {
+  --     "nvim-tree/nvim-web-devicons",
+  --   },
+  --   config = function()
+  --     -- disable netrw at the very start of your init.lua
+  --     vim.g.loaded_netrw = 1
+  --     vim.g.loaded_netrwPlugin = 1
+  --
+  --     require("nvim-tree").setup({
+  --       renderer = {
+  --         indent_markers = {
+  --           enable = true
+  --         }
+  --       }
+  --     })
+  --   end,
+  --   keys = {
+  --     {
+  --       "<leader>e", "<cmd>NvimTreeToggle<cr>", desc = "NvimTreeToggle"
+  --     }
+  --   },
+  -- },
 
   {
     "nvim-lualine/lualine.nvim",
@@ -67,16 +120,21 @@ return {
     version = "*",
     event = "VeryLazy",
     dependencies = "nvim-tree/nvim-web-devicons",
+    keys = {
+      { "<S-h>", "<cmd>BufferLineCyclePrev<cr>", desc = "Prev buffer" },
+      { "<S-l>", "<cmd>BufferLineCycleNext<cr>", desc = "Next buffer" },
+    },
     config = function()
       require("bufferline").setup({
         options = {
           diagnostics = "nvim_lsp",
           offsets = {
             {
-              filetype = "NvimTree",
+              filetype = "neo-tree",
+              -- TODO: 改写为显示最后一个文件夹的名称
               text = "File Explorer",
+              highlight = "Directory",
               text_align = "center",
-              separator = true
             }
           }
         }

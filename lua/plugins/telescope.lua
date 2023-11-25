@@ -119,10 +119,10 @@ return {
 
       local TelescopePrompt = {
         TelescopeBorder = {
-          fg = "#ffffff",
+          fg = "#abb2bf",
         },
         TelescopePromptBorder = {
-          fg = "#ffffff",
+          fg = "#abb2bf",
         },
       }
       for hl, col in pairs(TelescopePrompt) do
