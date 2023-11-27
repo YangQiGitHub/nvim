@@ -117,17 +117,17 @@ return {
         },
       })
 
-      local TelescopePrompt = {
-        TelescopeBorder = {
-          fg = "#abb2bf",
-        },
-        TelescopePromptBorder = {
-          fg = "#abb2bf",
-        },
-      }
-      for hl, col in pairs(TelescopePrompt) do
-        vim.api.nvim_set_hl(0, hl, col)
-      end
+      -- local TelescopePrompt = {
+      --   TelescopeBorder = {
+      --     fg = "#abb2bf",
+      --   },
+      --   TelescopePromptBorder = {
+      --     fg = "#abb2bf",
+      --   },
+      -- }
+      -- for hl, col in pairs(TelescopePrompt) do
+      --   vim.api.nvim_set_hl(0, hl, col)
+      -- end
     end
   },
 

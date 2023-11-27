@@ -1,4 +1,15 @@
 return {
+  { 
+    "catppuccin/nvim",
+    -- enabled = false,
+    name = "catppuccin",
+    priority = 1000,
+    lazy = false,
+    config = function()
+      vim.cmd.colorscheme("catppuccin")
+    end
+  },
+
   {
     "folke/tokyonight.nvim",
     enabled = false,
@@ -47,7 +58,7 @@ return {
 
   {
     "jayden-chan/base46.nvim",
-    -- enabled = false,
+    enabled = false,
     lazy = false,
     priority = 1000,
     config = function()

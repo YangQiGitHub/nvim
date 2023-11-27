@@ -37,10 +37,14 @@ return {
               error = "DiagnosticSignError",
             },
           },
+          indent = {
+            -- with_expanders = false,
+          },
         },
         close_if_last_window = true, -- Close Neo-tree if it is the last window left in the tab
-        add_blank_line_at_top = false,
+        -- add_blank_line_at_top = false,
         hide_root_node = true,
+        retain_hidden_root_indent = true,
         window = {
           width = 34,
           mappings = {
@@ -109,7 +113,8 @@ return {
     config = function()
       require("lualine").setup(
         {
-          options = { theme = "onedark" }
+          -- options = { theme = "onedark" }
+          options = { theme = "catppuccin" }
         }
       )
     end,
