@@ -22,6 +22,10 @@ return {
       -- vim.fn.sign_define("DiagnosticSignHint", { text = "󰌵", texthl = "DiagnosticSignHint" })
 
       require("neo-tree").setup({
+        close_if_last_window = false, -- Close Neo-tree if it is the last window left in the tab
+        -- add_blank_line_at_top = false,
+        hide_root_node = true,
+        retain_hidden_root_indent = true,
         default_component_configs = {
           diagnostics = {
             symbols = {
@@ -38,13 +42,16 @@ return {
             },
           },
           indent = {
-            -- with_expanders = false,
+            with_expanders = true,
           },
         },
-        close_if_last_window = true, -- Close Neo-tree if it is the last window left in the tab
-        -- add_blank_line_at_top = false,
-        hide_root_node = true,
-        retain_hidden_root_indent = true,
+        filesystem = {
+          follow_current_file = {
+            enabled = true,
+            -- leave_dirs_open = false,
+          },
+          use_libuv_file_watcher = true,
+        },
         window = {
           width = 34,
           mappings = {
@@ -53,6 +60,34 @@ return {
         },
       })
     end
+  },
+
+  {
+    'echasnovski/mini.bufremove',
+    version = '*',
+    -- event = "VeryLazy",
+    keys = {
+      {
+        "<leader>bd",
+        function()
+          local bd = require("mini.bufremove").delete
+          if vim.bo.modified then
+            local choice = vim.fn.confirm(("Save changes to %q?"):format(vim.fn.bufname()), "&Yes\n&No\n&Cancel")
+            if choice == 1 then -- Yes
+              vim.cmd.write()
+              bd(0)
+            elseif choice == 2 then -- No
+              bd(0, true)
+            end
+          else
+            bd(0)
+          end
+        end,
+        desc = "Delete Buffer",
+      },
+      -- stylua: ignore
+      { "<leader>bD", function() require("mini.bufremove").delete(0, true) end, desc = "Delete Buffer (Force)" },
+    }
   },
 
   {
